@@ -33,6 +33,7 @@ class CustomUserAdmin(UserAdmin):
         "username",
         "first_name",
         "last_name",
+        "user_uuid",
         "email",
         "user_type",
         "is_verified",
@@ -43,14 +44,26 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(models.Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    """Admin for Customer Users"""
+    """Admin for Customer Profiles"""
+
+    def username(self, obj):
+        return obj.user.username
+
+    def email(self, obj):
+        return obj.user.email
+
+    def first_name(self, obj):
+        return obj.user.first_name
+
+    def last_name(self, obj):
+        return obj.user.last_name
 
     list_display = (
         "username",
         "email",
         "first_name",
         "last_name",
-        "preffered_language",
+        "preferred_language",
         "subscription_plan",
         "subscription_status",
         "profile_completion",
@@ -58,20 +71,26 @@ class CustomerAdmin(admin.ModelAdmin):
     list_filter = (
         "subscription_plan",
         "subscription_status",
-        "preffered_language",
+        "preferred_language",
     )
     search_fields = (
-        "username",
-        "email",
-        "first_name",
-        "last_name",
-        "refferal_code",
+        "user__username",
+        "user__email",
+        "user__first_name",
+        "user__last_name",
+        "referral_code",
     )
 
 
 @admin.register(models.ServiceProvider)
 class ServiceProviderAdmin(admin.ModelAdmin):
-    """Admin for Service Providers"""
+    """Admin for Service Provider Profiles"""
+
+    def username(self, obj):
+        return obj.user.username
+
+    def email(self, obj):
+        return obj.user.email
 
     list_display = (
         "username",
@@ -88,8 +107,8 @@ class ServiceProviderAdmin(admin.ModelAdmin):
         "service_location",
     )
     search_fields = (
-        "username",
-        "email",
+        "user__username",
+        "user__email",
         "service_name",
         "user_description",
     )
