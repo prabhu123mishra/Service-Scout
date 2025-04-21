@@ -42,6 +42,9 @@ DJANGO_APPS = [
 
 PROJECT_APPS = [
     'scout_users.apps.ScoutUsersConfig',
+    'scout_services.apps.ScoutServicesConfig',
+    'scout_ratings.apps.ScoutRatingsConfig',
+    'scout_bookings.apps.ScoutBookingsConfig',
 ]
 
 THIRD_PARTY_APPS = [
