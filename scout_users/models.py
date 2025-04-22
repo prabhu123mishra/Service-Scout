@@ -7,6 +7,11 @@ import uuid
 class User(AbstractUser):
     """Base user model."""
     
+    class Meta:
+        verbose_name = "User"
+        verbose_name_plural = "Users"  
+    
+    
     USER_TYPE = (
         ('customer', 'Customer'),
         ('service_provider', 'Service Provider'),
@@ -38,6 +43,11 @@ class User(AbstractUser):
 
 
 class Customer(models.Model):
+    
+    class Meta:
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"  
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='customer_profile')
 
     preferred_language = models.CharField(max_length=50, null=True, blank=True)
@@ -61,6 +71,11 @@ class Customer(models.Model):
     
     
 class ServiceProvider(models.Model):
+    
+    class Meta:
+        verbose_name = "Service Provider"
+        verbose_name_plural = "Service Providers"  
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='service_provider_profile')
 
     AVAILABILITY = (
@@ -105,4 +120,3 @@ class ServiceProvider(models.Model):
 
     def __str__(self):
         return f'Service Provider: {self.user.email}'
-
