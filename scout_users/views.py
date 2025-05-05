@@ -2,6 +2,8 @@ from django.shortcuts import render
 from scout_users.models import User, Customer, ServiceProvider
 from scout_users.serializers import UserSerializer
 from scout_users.SignupSerializer import CustomerSignupSerializer, ServiceProviderSignupSerializer
+
+
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -9,6 +11,7 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.response import Response
 
 # Create your views here.
+
 
 class CustomerSignupView(generics.CreateAPIView):
     queryset = Customer.objects.all()
@@ -46,14 +49,14 @@ class CustomerUserUpdateView(generics.UpdateAPIView):
     def get_object(self):
         # Return the currently logged-in user (from the request)
         return self.request.user
-    
+
     def put(self, request, *args, **kwargs):
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data, status=HTTP_200_OK)
-    
+
 
 class ServiceProviderUserUpdateView(generics.UpdateAPIView):
     """
@@ -67,7 +70,7 @@ class ServiceProviderUserUpdateView(generics.UpdateAPIView):
     def get_object(self):
         # Return the currently logged-in user (from the request)
         return self.request.user
-    
+
     def put(self, request, *args, **kwargs):
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data, partial=True)
